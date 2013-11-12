@@ -1,0 +1,60 @@
+!!!
+%html
+  %head
+    %title Snack Project
+    = stylesheet_link_tag "application", "bootstrap-responsive", "jquery-ui", "bootstrap", "addon"
+    = javascript_include_tag "application", "bootstrap-dropdown"
+    %meta{ :name => "viewport", :content =>"width=device-width, initial-scale=1.0"}
+    = csrf_meta_tags
+  %body  
+    .container
+      .navbar
+        .navbar-inner
+          - if current_user && current_user.admin == true
+            = link_to "Admin", admin_path, :class => "brand"
+          - else  
+            = link_to "Snack Project", root_path, :class => "brand"
+          = link_to "Commander", nom_commande_path, :class => "brand"
+          %ul.nav.pull-right
+            - if user_signed_in?
+              %li.dropdown
+                %a(href="#" class="dropdown-toggle" data-toggle="dropdown")
+                  = current_user.email
+                  %b.caret
+                %ul.dropdown-menu
+                  %li
+                    = link_to 'Mes paramètres', edit_user_registration_path
+                  %li
+                    = link_to 'Se déconnecter', destroy_user_session_path, :method => :delete
+            - else
+              %li
+                = link_to 'Créer un compte', new_user_registration_path
+              %li
+                = link_to 'Se connecter', new_user_session_path
+      - if notice
+        %p.notice
+          .alert.success.fade.in
+            %a.close(data-dismiss="alert") &times;
+            = notice
+      - if alert
+        .alert.warning.fade.in
+          %a.close(data-dismiss="alert") &times;
+          %p= alert
+      .row-fluid
+        .span12
+          = yield
+
+
+          
+
+             
+      %br/
+  %footer.footer
+    .container{:style => "padding: 15px 0;"}
+      .row
+        .span5.offset1
+          = "Application réalisée par l'entreprise "
+          = link_to "Eric-Orlandini.fr", "http://www.eric-orlandini.fr", :target => "_blank"
+        .span3.offset2
+          = " Retrouvez nous sur "
+          = link_to "Facebook", "http://www.facebook.com/EricOrlandinifr", :target => "_blank"

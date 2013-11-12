@@ -1,0 +1,29 @@
+.row.offset1
+	%h3
+		= "Articles de la catégorie"
+		= @category.name
+	%br/
+.row
+	.span6.offset1
+		- if @category.articles.count == 0
+			%p
+				= "Auncun article à afficher"	
+		- else
+			- @category.articles.each do |a|
+				%p{:class => "span3"}
+					= a.name
+					%br/
+					= a.price
+					= "€"
+					= image_tag a.attachment, size: "75x75"
+					= button_to "Editer l'article", :action => "edit_article", :id => a.id
+					= button_to "Supprimer l'article", :action => "delete_article", :id => a.id					
+				%br/
+				= "Disponible : "
+				- if a.available == true
+					= "Oui"
+				- else
+					= "Non"
+				%br/
+				%br/
+		= button_to "Retour", :action => "liste_articles"

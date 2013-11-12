@@ -1,0 +1,10 @@
+- @categories.each do |c|
+	- if c.articles.count > 0 
+		.span4
+			%h4
+				= c.name
+			%div{:style => "text-align:center"}
+				- c.articles.each do |a|
+					- if a.commande_id == nil
+						= link_to a.name, :action => "articles_informations", :id => a.id
+						%br/

@@ -1,0 +1,8 @@
+.offset1
+	= form_for @category, :url => url_for(:action => "update_category", :id => @category.id) do |f|
+		= "Nom catégorie"
+		%br/
+		= f.text_field :name
+		%br/
+		%br/
+		= f.submit 'Valider'

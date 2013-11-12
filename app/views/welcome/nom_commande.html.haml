@@ -1,0 +1,15 @@
+%h3{:style => "text-align:center"}
+	= "Nouvelle commande"
+= form_for @commande, :url => create_commande_path do |f|
+	.span3
+		= f.label "Nom de la commande"
+		- if @user
+			= f.text_field :name, :value => @user.name
+		- else
+			= f.text_field :name
+	.span3
+		= f.label "Heur de la commande"
+		= select :commande, "hour_id", @hours.map {|u| [u.hour.to_formatted_s(:time), u.id]}
+	.span3
+		%br/
+		= f.submit "Valider", :class => "btn btn-primary"

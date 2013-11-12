@@ -1,0 +1,51 @@
+%meta{content: "92", "http-equiv" => "refresh"}/
+.row
+	.span5.offset1
+		%h3
+			= "Nouvelles Commandes"
+	.span6
+		%h3
+			= "Commandes Prêtes"
+%br/
+.row
+	.span3.offset1	
+		- if @non_pretes.count == 0
+			= "Il n'y a aucune commande"
+		- else
+			- @non_pretes.each do |c|
+				%p{:style => "border: 1px solid black"}
+					= c.name
+					= ""
+					= c.hour.hour.to_formatted_s(:time)
+					%br/
+					%br/
+					- c.articles.each do |ca|
+						= ca.name
+						.offset1
+							= ca.sauce.name
+						%br/	
+					= button_to "Prête", :action => "valider_commande", :id => c.id
+	.span3.offset2	
+		- if @pretes.count == 0
+			= "Il n'y a aucune commande prête"
+		- else
+			- @pretes.each do |c|
+				%p{:style => "border: 1px solid black"}
+					= c.name
+					= ""
+					= c.hour.hour.to_formatted_s(:time)
+					%br/
+					%br/
+					- c.articles.each do |ca|
+						= ca.name
+						%br/
+						= "&nbsp;&nbsp;&nbsp;&nbsp;#{ca.sauce.name}".html_safe
+						%br/
+						%br/
+					%br/
+					= "Total à payer : "
+					= c.articles.sum('price')
+					= "€"
+					= button_to "Payée", :action => "commande_payee", :id => c.id
+.offset1
+	= button_to "Retour", admin_path

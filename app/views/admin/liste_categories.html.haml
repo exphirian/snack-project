@@ -1,0 +1,31 @@
+.row.offset1
+	%h2.span6
+		= "Catégories"
+	%h3.span5
+		= "+ Ajouter une catégorie"
+%br/
+.row
+	.span6
+		.offset1	
+			- if @categories.count == 0
+				= "Auncune catégorie à afficher"	
+			- else
+				- @categories.each do |c|
+					%p{:style => "margin-bottom: 0px"}
+						= c.name
+						%br/
+						%div{:style => "font-size: 12px"}
+							= link_to "Editer la catégorie", :action => "edit_category", :id => c.id
+							%br/
+							= link_to "Supprimer la catégorie", {:action => "delete_category", :id => c.id}, :confirm=>"Si vous supprimez la catégorie, les articles associés seront supprimés avec. Voulez-vous continuez ?"
+			%br/		
+			= button_to "Retour", admin_path
+	.span5
+		= form_for @category, :url => create_category_path do |f|
+			%p
+				= "Nom catégorie"
+				%br/
+				= f.text_field :name
+				%br/
+				%br/
+				= f.submit 'Valider'

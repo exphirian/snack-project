@@ -1,0 +1,17 @@
+= form_for @user, :url => url_for(:action => "create_hour") do |f|
+	.span6
+		= f.label "Heure de début"
+		= f.time_select :start_hour
+	.span3
+		= f.label "Intervalle entre chaque commande en minutes"
+		= f.number_field :intervalle
+	%br/
+	.span6
+		= f.label "Heure de fin"
+		= f.time_select :end_hour
+	.span3
+		= f.label "Nombre de commande max acceptées par intervalle"
+		= f.number_field :commande_max
+	%br/
+	.span3
+		= f.submit "Valider", :class => "btn btn-primary"

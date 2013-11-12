@@ -1,0 +1,24 @@
+.offset1
+	= form_for @article, :url => url_for(:action => "update_article", :id => @article.id) do |f|
+		= "Nom article"
+		%br/
+		= f.text_field :name
+		%br/
+		%br/
+		= "Catégorie"
+		%br/
+		= select :article, "category_id", @categories.map {|u| [u.name, u.id]}
+		%br/
+		%br/
+		= "Prix"
+		%br/
+		= f.text_field :price
+		= "€"
+		%br/
+		%br/
+		= f.file_field :attachment
+		%br/
+		%br/
+		= select :article, "available", [['Disponible', true], ['Indisponible', false]]
+		%br/
+		= f.submit 'Valider'

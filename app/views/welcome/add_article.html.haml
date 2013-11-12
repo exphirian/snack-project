@@ -1,0 +1,58 @@
+.span6
+	- @commande.total_price = 0
+	- @commande.articles.each do |a|
+		.row
+			.span6
+				%h4
+					= a.name
+					%br/
+					= a.price
+					%br/
+					= link_to "Supprimer l'article", :action => "delete_article_from_commande", :id => a.id, :class => "btn btn-primary"
+				- @commande.total_price += a.price
+				%br/
+			.span6
+				- if a.attachment.exists?
+					= image_tag a.attachment
+				- else
+					%h4
+						= "Aucune image pour ce produit"
+				- @article = a
+				- if a.sauce == nil
+					- @final_sauces = []
+					- @sauces.each do |s|
+						- if s.category == a.category
+							- @final_sauces << s
+					= form_for @article, :url => url_for(:action => "add_sauce", :id => @article.id) do |f|
+						.row
+							= f.label "Choisissez une sauce"
+							= select :article, "sauce_id", @final_sauces.map {|u| [u.name, u.id]}
+						.row
+							%br/
+							= f.submit "Valider", :class => "btn btn-primary"
+				- else
+					.offset1
+						%h5
+							= "Sauce choisie: "
+							= a.sauce.name
+	%br/
+	%h4
+		= "Prix total de la commande:"
+		= @commande.total_price
+		= "€"
+.span6
+	%h3
+		= "Rajoutez un produit à votre commande"
+	= form_for @commande, :url => url_for(:action => "plus_article", :id => @commande.id) do |f|
+		.row{:style => "text-align:center"}
+			= f.label "Produit"
+			= select :commande, "add_id", @good_articles.map {|u| [u.name, u.id]}
+			%br/
+			%br/
+			= f.submit "Ajouter produit", :class => "btn btn-primary"
+	%br/
+	%br/
+	%h3
+		= "Commande prête? Validez la"
+	.row{:style => "text-align:center"}
+		= link_to "Valider commande", {:action => "validate_commande", :id => @commande.id}, :class => "btn btn-primary"

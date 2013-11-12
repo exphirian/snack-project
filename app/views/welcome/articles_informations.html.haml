@@ -1,0 +1,13 @@
+.span6
+	%h4
+		= @article.name
+	%br/
+	%div{:style => "margin-left:10%"}
+		.span4
+			= @article.description
+		.span4
+			= @article.price
+.span6
+	%br/
+	- if @article.attachment.exists?
+		= image_tag @article.attachment

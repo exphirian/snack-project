@@ -1,0 +1,45 @@
+.span6
+	.offset1
+		%h2
+			= "Articles"
+		%p
+			%br/
+			- if @base_article.count == 0
+				= "Auncun article à afficher"	
+			- else
+				- @categories.each do |c|
+					- if c.articles.count > 0
+						= link_to c.name, :action => "articles_by_category", :id => c.id
+						%br/
+						- c.articles.each do |ca|
+							- if ca.commande_id == nil
+								= "- "
+								= ca.name
+								%br/
+						%br/
+		%br/
+		= button_to "Retour", admin_path
+.span5
+	%h3
+		= "+ Ajouter un article"
+	= form_for @article, :url => create_article_path do |f|
+		= "Nom article"
+		%br/
+		= f.text_field :name
+		%br/
+		%br/
+		= "Catégorie"
+		%br/
+		= select :article, "category_id", @categories.map {|u| [u.name, u.id]}, include_blank: true
+		%br/
+		%br/
+		= "Prix"
+		%br/
+		= f.text_field :price
+		= "€"
+		%br/
+		%br/
+		= f.file_field :attachment
+		%br/
+		%br/
+		= f.submit 'Valider'

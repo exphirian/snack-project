@@ -1,0 +1,24 @@
+.span6
+	%h3
+		= "Sauces disponible"
+	- @categories.each do |c| 
+		%h4
+			= c.name
+		.offset3
+			- @sauces.each do |s|
+				- if s.category == c
+					= s.name
+					%br/
+.span6
+	%h3
+		= "Ajouter une nouvelle sauce"
+	= form_for @sauce, :url => create_sauce_path do |f|
+		.row
+			= f.label "Nom de la sauce"
+			= f.text_field :name
+		.row
+			= f.label "Categorie de la sauce"
+			= select :sauce, "category_id", @categories.map {|u| [u.name, u.id]}
+		.row
+			%br/
+			= f.submit "Valider", :class => "btn btn-primary"

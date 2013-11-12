@@ -1,0 +1,11 @@
+%h3
+	= "Mes commandes"
+%br/
+- @commandes.each do |c|
+	.span4
+		.span3
+			= c.hour.hour.to_formatted_s(:time)
+		.span1
+			- c.articles.each do |a|
+				= a.name
+				%br/
