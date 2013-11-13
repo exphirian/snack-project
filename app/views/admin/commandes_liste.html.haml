@@ -42,7 +42,10 @@
 					- c.articles.each do |ca|
 						= ca.name
 						%br/
-						= "&nbsp;&nbsp;&nbsp;&nbsp;#{ca.sauce.name}".html_safe
+						- if ca.sauce == nil
+							= "Aucune sauce pour ce sandwich"
+						- else
+							= "&nbsp;&nbsp;&nbsp;&nbsp;#{ca.sauce.name}".html_safe
 						%br/
 						%br/
 					%br/
