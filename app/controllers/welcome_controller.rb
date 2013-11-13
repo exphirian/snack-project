@@ -12,6 +12,7 @@ class WelcomeController < ApplicationController
 	def nom_commande
 		if Hour.count < 1
 			redirect_to root_path
+			flash[:notice] = "Aucune heure disponible"
 		end
 		if user_signed_in?
 			@user = current_user
