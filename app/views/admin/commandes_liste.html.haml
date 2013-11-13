@@ -20,12 +20,12 @@
 					%br/
 					%br/
 					- c.articles.each do |ca|
-						- if ca.sauce == nil
-							= "Aucune sauce pour ce sandwich"
-						- else 
-							= ca.name
+						= ca.name
 						.offset1
-							= ca.sauce.name
+							- if ca.sauce == nil
+								= "Aucune sauce pour ce sandwich"
+							- else
+								= ca.sauce.name
 						%br/	
 					= button_to "Prête", :action => "valider_commande", :id => c.id
 	.span3.offset2	
