@@ -7,13 +7,14 @@
 					= a.name
 					%br/
 					= a.price
+					= "€"
 					%br/
 					= link_to "Supprimer l'article", :action => "delete_article_from_commande", :id => a.id, :class => "btn btn-primary"
 				- @commande.total_price += a.price
 				%br/
 			.span6
 				- if a.attachment.exists?
-					= image_tag a.attachment
+					= image_tag a.attachment, :size => "300x300"
 				- else
 					%h4
 						= "Aucune image pour ce produit"
@@ -26,7 +27,7 @@
 					= form_for @article, :url => url_for(:action => "add_sauce", :id => @article.id) do |f|
 						.row
 							= f.label "Choisissez une sauce"
-							= select :article, "sauce_id", @final_sauces.map {|u| [u.name, u.id]}
+							= select :article, "sauce_id", @final_sauces.map {|u| [u.name, u.id]}, :prompt => "Aucune sauce"
 						.row
 							%br/
 							= f.submit "Valider", :class => "btn btn-primary"
@@ -53,6 +54,6 @@
 	%br/
 	%br/
 	%h3
-		= "Commande prête? Validez la"
+		= "Validez votre commande"
 	.row{:style => "text-align:center"}
-		= link_to "Valider commande", {:action => "validate_commande", :id => @commande.id}, :class => "btn btn-primary"
+		= link_to "OK", {:action => "validate_commande", :id => @commande.id}, :class => "btn btn-primary"

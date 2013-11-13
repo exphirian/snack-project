@@ -8,7 +8,7 @@
 		- else
 			= f.text_field :name
 	.span3
-		= f.label "Heur de la commande"
+		= f.label "Heure de retrait de commande"
 		= select :commande, "hour_id", @hours.map {|u| [u.hour.to_formatted_s(:time), u.id]}
 	.span3
 		%br/

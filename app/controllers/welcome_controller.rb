@@ -20,7 +20,11 @@ class WelcomeController < ApplicationController
 		@hours = []
 		Hour.all.each do |h|
 			if h.commandes.count < User.find_by_admin(true).commande_max
-				@hours << h
+				if h.hour.hour > Time.now.hour
+					if h.hour.min > Time.now.min
+						@hours << h
+					end
+				end
 			end
 		end
 		@commande = Commande.new
