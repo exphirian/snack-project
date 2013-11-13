@@ -21,6 +21,8 @@ class WelcomeController < ApplicationController
 		Hour.all.each do |h|
 			if h.commandes.count < User.find_by_admin(true).commande_max
 				if h.hour.hour > Time.now.hour
+					@hours << h
+				else
 					if h.hour.min > Time.now.min
 						@hours << h
 					end
