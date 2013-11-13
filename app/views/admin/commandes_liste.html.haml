@@ -20,7 +20,10 @@
 					%br/
 					%br/
 					- c.articles.each do |ca|
-						= ca.name
+						- if ca.sauce == nil
+							= "Aucune sauce pour ce sandwich"
+						- else 
+							= ca.name
 						.offset1
 							= ca.sauce.name
 						%br/	
